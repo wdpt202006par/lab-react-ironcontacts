@@ -19,7 +19,7 @@ class ContactsList extends React.Component {
       
         return (
           <div className="fiche">
-            <h1>IronContacts</h1>
+            <h1>IronContacts</h1> 
             <button onClick={(event)=> {
               this.setState({
                 contacts: [
@@ -29,7 +29,29 @@ class ContactsList extends React.Component {
                 ]
                 
               })
-            }}>Add Random Contact</button>
+            }}>Add Random Contact
+            </button>
+            <button onClick={(event)=> {
+              this.setState({
+                contacts: [
+                  ...this.state.contacts.sort(
+                    (a, b) => (a.name > b.name) ? 1 : -1
+                  )
+                ]
+                
+              })
+            }}>Sort by name
+            </button>
+             <button onClick={(event)=> {
+              this.setState({
+                contacts: [
+                  ...this.state.contacts.sort(
+                    (a, b) => (a.popularity > b.popularity) ? 1 : -1
+                  )
+                ]
+                
+              })
+            }}>Sort by popularity</button>
             <ul>
               {this.state.contacts.map(person => (
                 <li key={person.id}>
