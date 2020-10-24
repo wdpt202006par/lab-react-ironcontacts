@@ -46,6 +46,7 @@ import json from '../contacts.json';
 class Contacts extends Component {
   state = {
     contacts: json.slice(0, 5),
+    fullContact: json
   };
   render() {
     return (
@@ -78,6 +79,19 @@ class Contacts extends Component {
             })}
           </tbody>
         </table>
+        <button onClick={(event) => {
+
+          var randIndex = Math.round(Math.random() * (this.state.fullContact.length - 1))
+
+          this.setState({
+            contacts: [
+              ...this.state.contacts,
+              this.state.fullContact[randIndex]
+            ]
+          })
+        }}> ADD NEW RANDOM CONTACT
+
+        </button>
       </div>
     );
   }
