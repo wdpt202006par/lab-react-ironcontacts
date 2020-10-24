@@ -8,10 +8,21 @@ class App extends React.Component {
     contacts: contacts.slice(0, 5)
   }
 
+  addContact = () => {
+    const randomContact = contacts[Math.floor((Math.random() * contacts.length -1) + 1)]
+    this.setState({
+      contacts: [
+        ...this.state.contacts,
+        randomContact
+      ]
+    })
+  }
+
   render() {
     return(
       <div>
         <h1>IronContacts</h1>
+        <button onClick={this.addContact}>Add random contact</button>
         <table>
           <thead>
             <th>Picture</th>
