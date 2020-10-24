@@ -11,24 +11,24 @@ state ={
 render(){
   return (
     <div className="App">
+    <h1>IronContacts</h1>
       <table>
         <tr>
-          <th>Photo</th>
+          <th>Picture</th>
           <th>Name</th>
           <th>Popularity</th>
         </tr>
-        {/* [<tr>...</tr>, ] */}
         {this.state.contacts.map (el => {
            return(
             <tr>
           <td>
-            <img src={el.pictureUrl}/>
+            <img className ="photo" src={el.pictureUrl}/>
           </td>
-          <td>
-           {el.name}
+          <td className ="name">
+           <h3>{el.name}</h3>
           </td>
-          <td>
-           {el.popularity}
+          <td className ="popularity">
+           <h3>{el.popularity.toFixed(2)}</h3>
           </td>
         </tr> 
            )
