@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
+import json from './contacts.json';
 import './App.css';
 
-function App() {
+class App extends React.Component {
+
+state ={
+  contacts : json.slice(0, 5)
+}
+ 
+render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <table>
+        <tr>
+          <th>Photo</th>
+          <th>Name</th>
+          <th>Popularity</th>
+        </tr>
+        {/* [<tr>...</tr>, ] */}
+        {this.state.contacts.map (el => {
+           return(
+            <tr>
+          <td>
+            <img src={el.pictureUrl}/>
+          </td>
+          <td>
+           {el.name}
+          </td>
+          <td>
+           {el.popularity}
+          </td>
+        </tr> 
+           )
+           
+        })}
+      
+      </table>
     </div>
   );
+}
+  
 }
 
 export default App;
