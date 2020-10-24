@@ -32,6 +32,15 @@ class List extends React.Component{
     })
   }
 
+  deleteContactHandler = id => {
+    const copiedContacts = this.state.contacts;
+    const contactIndex = copiedContacts.findIndex(item => item.id === id);
+    copiedContacts.splice(contactIndex, 1);
+    this.setState({
+      contacts:copiedContacts
+    })
+  }
+
   render(){
     console.log(this.state.contacts);
     return (
@@ -40,7 +49,7 @@ class List extends React.Component{
         <button onClick={(event)=> this.getRandomContact()}>Add Random Contact</button>
         <button onClick={(event)=> this.sortByName()}>Sort By Name</button>
         <button onClick={(event)=> this.sortByPopularity()}>Sort By Popularity</button>
-        <table>
+        <table className="tab">
           <thead>
             <tr>
                 <th>Picture</th>
@@ -54,6 +63,7 @@ class List extends React.Component{
                 <td><img style={{height:'100px'}} src={contact.pictureUrl} alt=""></img></td>
                 <td>{contact.name} </td>
                 <td>{contact.popularity.toFixed(2)}</td>
+                <td><button onClick={()=>this.deleteContactHandler(contact.id)}>Delete</button></td>
               </tr>
             )
           }
