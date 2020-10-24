@@ -1,26 +1,71 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import contacts from './contacts.json';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    contacts: contacts.slice(0, 5)
+  }
+
+  addContact = () => {
+    const randomContact = contacts[Math.floor((Math.random() * contacts.length -1) + 1)]
+    this.setState({
+      contacts: [
+        ...this.state.contacts,
+        randomContact
+      ]
+    })
+  }
+
+  sortByName = () => {
+    const sortContacts = this.state.contacts.sort((a, b) => a.name.localeCompare(b.name));
+    this.setState({
+      contacts: sortContacts
+    })
+  }
+
+  sortByPopularity = () => {
+    const sortPop = this.state.contacts.sort((a, b) => b.popularity - a.popularity);
+    this.setState({
+      contacts: sortPop
+    })
+  }
+
+  delete = (id) => {
+    const contactsCopy = this.state.contacts;
+    const contactId = contactsCopy.findIndex(item => item.id === id);
+    contactsCopy.splice(contactId, 1);
+    this.setState({contacts: contactsCopy});
+  }
+
+  render() {
+    return(
+      <div>
+        <h1>IronContacts</h1>
+        <button onClick={this.addContact}>Add random contact</button>
+        <button onClick={this.sortByName}>Sort by name</button>
+        <button onClick={this.sortByPopularity}>Sort by popularity</button>
+        <table>
+          <thead>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Popularity</th>
+          </thead>
+          <tbody>
+            {this.state.contacts.map(contact => (
+              <tr>
+                <td><img src={contact.pictureUrl} alt="Contact"/></td>
+                <td>{contact.name}</td>
+                <td>{contact.popularity.toFixed(2)}</td>
+                <td><button onClick={() => this.delete(contact.id)}>Delete</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 export default App;
