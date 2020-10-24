@@ -18,11 +18,27 @@ class App extends React.Component {
     })
   }
 
+  sortByName = () => {
+    const sortContacts = this.state.contacts.sort((a, b) => a.name.localeCompare(b.name));
+    this.setState({
+      contacts: sortContacts
+    })
+  }
+
+  sortByPopularity = () => {
+    const sortPop = this.state.contacts.sort((a, b) => b.popularity - a.popularity);
+    this.setState({
+      contacts: sortPop
+    })
+  }
+
   render() {
     return(
       <div>
         <h1>IronContacts</h1>
         <button onClick={this.addContact}>Add random contact</button>
+        <button onClick={this.sortByName}>Sort by name</button>
+        <button onClick={this.sortByPopularity}>Sort by popularity</button>
         <table>
           <thead>
             <th>Picture</th>
