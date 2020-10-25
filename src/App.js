@@ -13,6 +13,14 @@ randomcontact = () => {
   return Math.floor(Math.random()*(json.length -5 ) + 5)
 }
 
+deletecontactHandler = id => {
+  const contactsCopy = [...this.state.contacts]; // <== notice the spread operator here!
+  const contactsIndex = contactsCopy.findIndex(item => item.id === id);
+  contactsCopy.splice(contactsIndex, 1);
+  this.setState({
+    contacts: contactsCopy
+  });
+};
 
 render(){
   return (
@@ -51,22 +59,34 @@ render(){
     >Sort by popularity</button>
 
       <table>
-        <tr>
+        <tr className="titles">
           <th>Picture</th>
           <th>Name</th>
           <th>Popularity</th>
+          <th>Action</th>
         </tr>
         {this.state.contacts.map (el => {
            return(
             <tr>
-          <td>
+          <td className ="element-table">
             <img className ="photo" src={el.pictureUrl}/>
           </td>
-          <td className ="name">
+          <td className ="element-table">
            <h3>{el.name}</h3>
           </td>
-          <td className ="popularity">
-           <h3>{el.popularity}</h3>
+          <td className ="element-table">
+           <h3>{el.popularity.toFixed(2)}</h3>
+          </td>
+          <td className ="element-table">
+           {/* <button onClick={(event4) =>{
+      this.setState({
+        contacts: [
+         ...this.state.contacts = this.deletecontactHandler(item.id)
+         
+        ]
+      })
+    }}
+    >Delete</button> */}
           </td>
         </tr> 
            )  
