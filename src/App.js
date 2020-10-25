@@ -8,10 +8,29 @@ state ={
   contacts : json.slice(0, 5)
 }
  
+// selection aleatoire dans contact.json ]5; max contact]
+randomcontact = () => {
+  return Math.floor(Math.random()*(json.length -5 ) + 5)
+}
+
 render(){
   return (
+
     <div className="App">
     <h1>IronContacts</h1>
+
+    <button onClick={(event) =>{
+      this.setState({
+        contacts :[
+          ...this.state.contacts,
+         json[this.randomcontact()]
+        ]
+      })
+    }}
+    
+    >Add random contact</button>
+
+
       <table>
         <tr>
           <th>Picture</th>
@@ -31,10 +50,8 @@ render(){
            <h3>{el.popularity.toFixed(2)}</h3>
           </td>
         </tr> 
-           )
-           
+           )  
         })}
-      
       </table>
     </div>
   );
