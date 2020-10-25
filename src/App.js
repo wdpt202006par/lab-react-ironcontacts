@@ -13,12 +13,13 @@ randomcontact = () => {
   return Math.floor(Math.random()*(json.length -5 ) + 5)
 }
 
+
 render(){
   return (
 
     <div className="App">
     <h1>IronContacts</h1>
-
+    
     <button onClick={(event) =>{
       this.setState({
         contacts :[
@@ -27,9 +28,27 @@ render(){
         ]
       })
     }}
-    
     >Add random contact</button>
+    
+    <button onClick={(event2) =>{
+      this.setState({
+        contacts: [
+         ...this.state.contacts.sort((a,b) => (a.name > b.name) ? 1 : -1
+         )
+        ]
+      })
+    }}
+    >Sort by name</button>
 
+    <button onClick={(event3) =>{
+      this.setState({
+        contacts: [
+         ...this.state.contacts.sort((a,b) => (a.popularity > b.popularity) ? -1 : 1
+         )
+        ]
+      })
+    }}
+    >Sort by popularity</button>
 
       <table>
         <tr>
@@ -47,7 +66,7 @@ render(){
            <h3>{el.name}</h3>
           </td>
           <td className ="popularity">
-           <h3>{el.popularity.toFixed(2)}</h3>
+           <h3>{el.popularity}</h3>
           </td>
         </tr> 
            )  
