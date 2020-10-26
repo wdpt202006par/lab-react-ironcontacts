@@ -13,14 +13,14 @@ randomcontact = () => {
   return Math.floor(Math.random()*(json.length -5 ) + 5)
 }
 
-deletecontactHandler = id => {
-  const contactsCopy = [...this.state.contacts]; // <== notice the spread operator here!
-  const contactsIndex = contactsCopy.findIndex(item => item.id === id);
-  contactsCopy.splice(contactsIndex, 1);
+deleteButton = (name) => {
+  const contactsCopy = [...this.state.contacts];
+  const contactIndexToRemove = contactsCopy.findIndex(el => el.name === name);
+  contactsCopy.splice(contactIndexToRemove, 1);
   this.setState({
     contacts: contactsCopy
-  });
-};
+  })
+}
 
 render(){
   return (
@@ -78,15 +78,10 @@ render(){
            <h3>{el.popularity.toFixed(2)}</h3>
           </td>
           <td className ="element-table">
-           {/* <button onClick={(event4) =>{
-      this.setState({
-        contacts: [
-         ...this.state.contacts = this.deletecontactHandler(item.id)
-         
-        ]
-      })
-    }}
-    >Delete</button> */}
+           <button onClick={(event4) =>{
+             this.deleteButton(el.name)
+             }}
+            >Delete</button>
           </td>
         </tr> 
            )  
