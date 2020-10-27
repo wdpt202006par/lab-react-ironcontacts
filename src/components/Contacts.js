@@ -46,12 +46,66 @@ import json from '../contacts.json';
 class Contacts extends Component {
   state = {
     contacts: json.slice(0, 5),
-    fullContact: json
+    fullContact: json,
   };
   render() {
     return (
       <div className="App">
         <h1>IronContacts</h1>
+        <button
+          onClick={(event) => {
+            var randIndex = Math.round(
+              Math.random() * (this.state.fullContact.length - 1)
+            );
+
+            this.setState({
+              contacts: [
+                ...this.state.contacts,
+                this.state.fullContact[randIndex],
+              ],
+            });
+          }}
+        >
+          ADD NEW RANDOM CONTACT
+        </button>
+        <button
+          onClick={(event) => {
+            //récuperer full contact et prendre l'array d'objets, copie et sort
+            let sortedContact = this.state.fullContact.slice().sort((a, b) => {
+              var nameA = a.name.toUpperCase();
+              var nameB = b.name.toUpperCase();
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+              return 0;
+            });
+            console.log(sortedContact);
+            //change le state avec setState et changer la liste qui s'affiche
+            this.setState({
+              contacts: sortedContact,
+            });
+          }}
+        >
+          Sort by name
+        </button>
+        <button
+          onClick={(event) => {
+            //récuperer full contact et prendre l'array d'objets, copie et sort
+            let popularContact = this.state.fullContact.slice().sort((a, b) => {
+              return b.popularity - a.popularity;
+            });
+            console.log(popularContact);
+            //change le state avec setState et changer la liste qui s'affiche
+            this.setState({
+              contacts: popularContact,
+            });
+          }}
+        >
+          Sort by popularity
+        </button>
         <table>
           <thead>
             <tr>
@@ -79,19 +133,6 @@ class Contacts extends Component {
             })}
           </tbody>
         </table>
-        <button onClick={(event) => {
-
-          var randIndex = Math.round(Math.random() * (this.state.fullContact.length - 1))
-
-          this.setState({
-            contacts: [
-              ...this.state.contacts,
-              this.state.fullContact[randIndex]
-            ]
-          })
-        }}> ADD NEW RANDOM CONTACT
-
-        </button>
       </div>
     );
   }
