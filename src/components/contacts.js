@@ -62,22 +62,33 @@ class ContactsList extends React.Component {
                 
               })
             }}>Sort by popularity</button>
-            <ul>
-              {this.state.contacts.map(person => (
-                <li key={person.id}>
-                  <div>
-                  name={person.name}
-                  </div>
-                  <img src={person.pictureUrl}></img>
-                  <div>
-                  popularity={person.popularity}
-                  </div>
-                  <div>
+            
+            <table>
+                  <tr>
+                    <th>Picture</th>
+                    <th>Name</th>
+                    <th>Popularity</th>
+                    <th>Action</th>
+                  </tr>
+            {this.state.contacts.map(person => (
+                  <tr key={person.id}>
+                    <td>
+                      <img src={person.pictureUrl}></img>
+                    </td>
+                    <td>
+                      {person.name}
+                    </td>
+                    <td>
+                      {person.popularity}
+                    </td>
+                    <td>
                     <button onClick = {event => {this.deleteActor(person.name)}}>Delete</button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    </td>
+                  </tr>
+         
+              ))} 
+              </table>
+            
           </div>
           );
     }
