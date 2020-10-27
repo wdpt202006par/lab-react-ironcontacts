@@ -13,10 +13,19 @@ class ContactsList extends React.Component {
       return Math.floor(Math.random()*(contacts.length - 5)+5) // ]5, nb contact total[
     }
 
+    deleteActor = id => {
+      const actorsCopy = this.state.contacts;
+      const actorIndex = actorsCopy.findIndex(actor => actor.id === id);
+      actorsCopy.splice(actorIndex, 1);
+      this.setState({
+        actors:actorsCopy 
+      })
+    }
+
     
 
     render() {
-      
+
         return (
           <div className="fiche">
             <h1>IronContacts</h1> 
@@ -46,7 +55,7 @@ class ContactsList extends React.Component {
               this.setState({
                 contacts: [
                   ...this.state.contacts.sort(
-                    (a, b) => (a.popularity > b.popularity) ? 1 : -1
+                    (a, b) => (a.popularity > b.popularity) ? -1 : 1
                   )
                 ]
                 
@@ -61,6 +70,9 @@ class ContactsList extends React.Component {
                   <img src={person.pictureUrl}></img>
                   <div>
                   popularity={person.popularity}
+                  </div>
+                  <div>
+                    <button onClick={this.deleteActor}>Delete</button>
                   </div>
                 </li>
               ))}
