@@ -13,14 +13,15 @@ class ContactsList extends React.Component {
       return Math.floor(Math.random()*(contacts.length - 5)+5) // ]5, nb contact total[
     }
 
-    deleteActor = id => {
-      const actorsCopy = this.state.contacts;
-      const actorIndex = actorsCopy.findIndex(actor => actor.id === id);
+    deleteActor = (name) => {
+      const actorsCopy = [...this.state.contacts];
+      const actorIndex = actorsCopy.findIndex(actor => actor.name === name);
       actorsCopy.splice(actorIndex, 1);
       this.setState({
-        actors:actorsCopy 
+        contacts:actorsCopy 
       })
     }
+
 
     
 
@@ -72,7 +73,7 @@ class ContactsList extends React.Component {
                   popularity={person.popularity}
                   </div>
                   <div>
-                    <button onClick={this.deleteActor}>Delete</button>
+                    <button onClick = {event => {this.deleteActor(person.name)}}>Delete</button>
                   </div>
                 </li>
               ))}
